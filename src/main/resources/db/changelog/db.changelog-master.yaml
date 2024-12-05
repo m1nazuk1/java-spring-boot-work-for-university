@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dev
+      changes:
+        - createTable:
+            tableName: owner
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: phone
+                  type: VARCHAR(15)
+
+  - changeSet:
+      id: 2
+      author: dev
+      changes:
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: make
+                  type: VARCHAR(255)
+              - column:
+                  name: model
+                  type: VARCHAR(255)
+              - column:
+                  name: year
+                  type: INT
+              - column:
+                  name: owner_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_car_owner
+                    references: owner(id)
+
+  - changeSet:
+      id: 3
+      author: dev
+      changes:
+        - createTable:
+            tableName: service_record
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: car_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_service_record_car
+                    references: car(id)
+              - column:
+                  name: service_date
+                  type: DATE
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: cost
+                  type: DOUBLE
